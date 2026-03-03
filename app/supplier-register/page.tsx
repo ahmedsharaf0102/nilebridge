@@ -1,24 +1,45 @@
 'use client';
 import { useState } from 'react';
+import { supabase } from '../lib/supabase';
 
 export default function SupplierRegister() {
   const [formData, setFormData] = useState({
-    companyName: '',
-    contactPerson: '',
+    company_name: '',
+    contact_person: '',
     email: '',
     phone: '',
     city: '',
     products: '',
-    exportExperience: '',
+    export_experience: '',
     certificates: '',
     message: '',
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError('');
+
+    try {
+      const { error: supabaseError } = await supabase
+        .from('suppliers')
+        .insert([formData]);
+
+      if (supabaseError) {
+        setError('Something went wrong. Please try again.');
+        console.error(supabaseError);
+      } else {
+        setSubmitted(true);
+      }
+    } catch {
+      setError('Connection error. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -30,7 +51,7 @@ export default function SupplierRegister() {
             Registration Received!
           </h2>
           <p className="text-gray-600 mb-8">
-            Thank you for registering as a supplier. Our team will review 
+            Thank you for registering as a supplier. Our team will review
             your application and contact you within 48 hours.
           </p>
           <a href="/" className="inline-block px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 transition-all">
@@ -51,7 +72,7 @@ export default function SupplierRegister() {
             Supplier Registration
           </h1>
           <p className="text-emerald-200 text-lg max-w-xl mx-auto">
-            Register your Egyptian agricultural business and connect 
+            Register your Egyptian agricultural business and connect
             with verified UK importers
           </p>
         </div>
@@ -61,10 +82,16 @@ export default function SupplierRegister() {
       <section className="py-16 px-4 bg-gray-50">
         <div className="max-w-2xl mx-auto">
           <form onSubmit={handleSubmit} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 space-y-6">
-            
+
             <h2 className="text-xl font-bold text-gray-900 pb-4 border-b border-gray-100">
               Company Information
             </h2>
+
+            {error && (
+              <div className="bg-red-50 text-red-600 p-4 rounded-xl text-sm">
+                ❌ {error}
+              </div>
+            )}
 
             <div>
               <label className="block text-gray-700 font-semibold mb-2 text-sm">
@@ -73,8 +100,8 @@ export default function SupplierRegister() {
               <input
                 type="text"
                 required
-                value={formData.companyName}
-                onChange={(e) => setFormData({...formData, companyName: e.target.value})}
+                value={formData.company_name}
+                onChange={(e) => setFormData({...formData, company_name: e.target.value})}
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
                 placeholder="Your company name"
               />
@@ -88,8 +115,8 @@ export default function SupplierRegister() {
                 <input
                   type="text"
                   required
-                  value={formData.contactPerson}
-                  onChange={(e) => setFormData({...formData, contactPerson: e.target.value})}
+                  value={formData.contact_person}
+                  onChange={(e) => setFormData({...formData, contact_person: e.target.value})}
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
                   placeholder="Full name"
                 />
@@ -161,8 +188,8 @@ export default function SupplierRegister() {
                 Export Experience
               </label>
               <select
-                value={formData.exportExperience}
-                onChange={(e) => setFormData({...formData, exportExperience: e.target.value})}
+                value={formData.export_experience}
+                onChange={(e) => setFormData({...formData, export_experience: e.target.value})}
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all bg-white"
               >
                 <option value="">Select experience level</option>
@@ -201,9 +228,10 @@ export default function SupplierRegister() {
 
             <button
               type="submit"
-              className="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-emerald-700 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+              disabled={loading}
+              className="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-emerald-700 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Submit Registration ✓
+              {loading ? '⏳ Submitting...' : 'Submit Registration ✓'}
             </button>
           </form>
         </div>
