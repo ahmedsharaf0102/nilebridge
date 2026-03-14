@@ -20,16 +20,16 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-8">
             <Link href="/" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">Home</Link>
             <Link href="/about" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">About</Link>
+            <Link href="/blog" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">Blog</Link>
             <Link href="/resources" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">Resources</Link>
-            <a href="/#services" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">Products</a>
           </div>
 
           <div className="hidden md:flex items-center space-x-3">
             <Link href="/supplier-register" className="px-4 py-2 text-emerald-600 border border-emerald-600 rounded-lg font-semibold hover:bg-emerald-50 transition-all">
-              I&apos;m a Supplier
+              Supplier
             </Link>
             <Link href="/importer-register" className="px-4 py-2 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 transition-all hover:shadow-lg">
-              I&apos;m an Importer
+              Importer
             </Link>
           </div>
 
@@ -46,13 +46,13 @@ export default function Navbar() {
 
         {isOpen && (
           <div className="md:hidden pb-4 fade-in">
-            <Link href="/" onClick={() => setIsOpen(false)} className="block px-4 py-3 text-gray-700 hover:bg-emerald-50 rounded-lg font-medium">Home</Link>
-            <Link href="/about" onClick={() => setIsOpen(false)} className="block px-4 py-3 text-gray-700 hover:bg-emerald-50 rounded-lg font-medium">About</Link>
-            <Link href="/resources" onClick={() => setIsOpen(false)} className="block px-4 py-3 text-gray-700 hover:bg-emerald-50 rounded-lg font-medium">Resources</Link>
-            <a href="/#services" onClick={() => setIsOpen(false)} className="block px-4 py-3 text-gray-700 hover:bg-emerald-50 rounded-lg font-medium">Products</a>
+            <Link href="/" onClick={() => setIsOpen(false)} className="block px-4 py-3 text-gray-700 hover:bg-emerald-50 rounded-lg">Home</Link>
+            <Link href="/about" onClick={() => setIsOpen(false)} className="block px-4 py-3 text-gray-700 hover:bg-emerald-50 rounded-lg">About</Link>
+            <Link href="/blog" onClick={() => setIsOpen(false)} className="block px-4 py-3 text-gray-700 hover:bg-emerald-50 rounded-lg">Blog</Link>
+            <Link href="/resources" onClick={() => setIsOpen(false)} className="block px-4 py-3 text-gray-700 hover:bg-emerald-50 rounded-lg">Resources</Link>
             <div className="mt-3 space-y-2 px-4">
-              <Link href="/supplier-register" className="block text-center px-4 py-3 text-emerald-600 border border-emerald-600 rounded-lg font-semibold">I&apos;m a Supplier</Link>
-              <Link href="/importer-register" className="block text-center px-4 py-3 bg-emerald-600 text-white rounded-lg font-semibold">I&apos;m an Importer</Link>
+              <Link href="/supplier-register" className="block text-center px-4 py-3 text-emerald-600 border border-emerald-600 rounded-lg font-semibold">Supplier</Link>
+              <Link href="/importer-register" className="block text-center px-4 py-3 bg-emerald-600 text-white rounded-lg font-semibold">Importer</Link>
             </div>
           </div>
         )}
