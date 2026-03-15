@@ -8,8 +8,9 @@ export function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const article = articles.find((a) => a.slug === params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = articles.find((a) => a.slug === slug);
   if (!article) return { title: 'Article Not Found' };
 
   return {
@@ -27,8 +28,9 @@ const colorMap: Record<string, string> = {
   purple: 'from-purple-800 to-purple-900',
 };
 
-export default function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = articles.find((a) => a.slug === params.slug);
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = articles.find((a) => a.slug === slug);
 
   if (!article) {
     notFound();
@@ -49,7 +51,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             {article.title}
           </h1>
           <p className="text-white/70">
-            {article.date} • {article.readTime}
+            {article.date} | {article.readTime}
           </p>
         </div>
       </section>
@@ -121,7 +123,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             }
           })}
 
-          {/* CTA at end of article */}
+          {/* CTA */}
           <div className="bg-gradient-to-r from-emerald-600 to-cyan-600 text-white p-8 rounded-2xl text-center mt-16">
             <h3 className="text-2xl font-black mb-4">Ready to Start Trading?</h3>
             <p className="text-emerald-100 mb-6">
@@ -129,10 +131,10 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/supplier-register" className="px-6 py-3 bg-white text-emerald-700 rounded-lg font-bold hover:shadow-lg transition-all">
-                Register as Supplier →
+                Register as Supplier
               </Link>
               <Link href="/importer-register" className="px-6 py-3 border-2 border-white text-white rounded-lg font-bold hover:bg-white hover:text-emerald-700 transition-all">
-                Register as Importer →
+                Register as Importer
               </Link>
             </div>
           </div>
