@@ -9,7 +9,7 @@ export default function Resources() {
   return (
     <div className="pt-16">
       {/* Hero */}
-      <section className="py-20 px-4 bg-gradient-to-br from-emerald-800 to-cyan-900 text-white">
+      <section className="py-20 px-4 bg-linear-to-br from-emerald-800 to-cyan-900 text-white">
         <div className="max-w-4xl mx-auto text-center fade-in">
           <h1 className="text-4xl md:text-5xl font-black mb-6">
             Trade Resources and Tools
