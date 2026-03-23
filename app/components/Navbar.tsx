@@ -17,9 +17,10 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             <Link href="/" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">Home</Link>
             <Link href="/about" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">About</Link>
+            <Link href="/tools" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">Tools</Link>
             <Link href="/blog" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">Blog</Link>
             <Link href="/resources" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">Resources</Link>
           </div>
@@ -48,6 +49,7 @@ export default function Navbar() {
           <div className="md:hidden pb-4 fade-in">
             <Link href="/" onClick={() => setIsOpen(false)} className="block px-4 py-3 text-gray-700 hover:bg-emerald-50 rounded-lg">Home</Link>
             <Link href="/about" onClick={() => setIsOpen(false)} className="block px-4 py-3 text-gray-700 hover:bg-emerald-50 rounded-lg">About</Link>
+            <Link href="/tools" onClick={() => setIsOpen(false)} className="block px-4 py-3 text-gray-700 hover:bg-emerald-50 rounded-lg">Tools</Link>
             <Link href="/blog" onClick={() => setIsOpen(false)} className="block px-4 py-3 text-gray-700 hover:bg-emerald-50 rounded-lg">Blog</Link>
             <Link href="/resources" onClick={() => setIsOpen(false)} className="block px-4 py-3 text-gray-700 hover:bg-emerald-50 rounded-lg">Resources</Link>
             <div className="mt-3 space-y-2 px-4">
